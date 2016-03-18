@@ -9,33 +9,21 @@
 #import "S3FileSharing.h"
 #import <AWSS3/AWSS3.h>
 #import <AWSCore/AWSCore.h>
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @implementation S3FileSharing {
     AWSTask* _uploadTask;
     AWSS3TransferUtilityUploadExpression* _uploadExpression;
+    
 }
 
-- (instancetype)initWithAccessKey:(NSString*)key secret:(NSString*)secret
+- (instancetype)initWithDelegate:(id<S3FileSharingDelegate>)delegate
 {
     self = [super init];
     if (self) {
-        [AWSLogger defaultLogger].logLevel = AWSLogLevelDebug;
-    
-        // TODO: Set this up to work with Cognito or something.
-        // This is not recommended at all.
-        AWSStaticCredentialsProvider* credentials =
-        [[AWSStaticCredentialsProvider alloc] initWithAccessKey:key
-                                                      secretKey:secret];
-        
-        AWSServiceConfiguration *configuration =
-        [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1
-                                    credentialsProvider:credentials];
-        
-        AWSServiceManager.defaultServiceManager.defaultServiceConfiguration =
-        configuration;
-        
-        self.bucket = @"artifact.tokbox.com";
-
+        [self setDelegate:delegate];
+        [self setBucket:@"com.wobbals.s3filesharing"];
+        [self setPrefix:@"S3FileSharing"];
     }
     return self;
 }
@@ -44,7 +32,7 @@
     NSDictionary *fileAttributes =
     [[NSFileManager defaultManager] attributesOfItemAtPath:file.path error:nil];
     NSNumber *fileSize = [fileAttributes objectForKey:NSFileSize];
-    NSLog(@"uploading %@ bytes", fileSize);
+    DDLogInfo(@"Will upload %@ bytes", fileSize);
     
     NSString* fileName = [file lastPathComponent];
 
@@ -57,7 +45,7 @@
                                              int64_t totalBytesSent,
                                              int64_t totalBytesExpectedToSend)
     {
-        NSLog(@"bytesOut: %lld of %lld",
+        DDLogDebug(@"bytesOut: %lld of %lld",
               totalBytesSent,
               totalBytesExpectedToSend);
     };
@@ -66,34 +54,48 @@
     ^(AWSS3TransferUtilityUploadTask * _Nonnull task,
       NSError * _Nullable error)
     {
-        NSLog(@"new block task: %@", task);
-        NSLog(@"error: %@", error);
+        [self.delegate file:file uploadCompletedWithKey:task.key error:error];
     };
     
     [[transferUtility uploadFile:file
                          bucket:self.bucket
-                            key:[NSString stringWithFormat:@"charley/%@", fileName]
+                            key:[NSString stringWithFormat:@"%@/%@",
+                                 self.prefix, fileName]
                     contentType:@"text/plain"
                      expression:_uploadExpression
-               completionHander:completionBlock] continueWithBlock:^id(AWSTask *task) {
+               completionHander:completionBlock]
+     continueWithBlock:^id(AWSTask *task)
+     {
         if (task.error) {
-            NSLog(@"Error: %@", task.error);
+            DDLogError(@"Error: %@", task.error);
         }
         if (task.exception) {
-            NSLog(@"Exception: %@", task.exception);
+            DDLogError(@"Exception: %@", task.exception);
         }
         if (task.result) {
-            NSLog(@"Result: %@", task.result);
+            DDLogInfo(@"Result: %@", task.result);
         }
         
         return nil;
     }];
     
-    NSLog(@"started");
+    DDLogInfo(@"started upload!");
 }
 
-- (void)releaseFile:(NSString *)key {
+- (void)releaseFile:(NSString *)key
+{
     
 }
+
+- (void)fetchKey:(NSString*)key {
+    NSURL* tempURL;
+    [self fetchKey:key toURL:tempURL];
+}
+
+- (void)fetchKey:(NSString*)key toURL:(NSURL*)url
+{
+    
+}
+
 
 @end

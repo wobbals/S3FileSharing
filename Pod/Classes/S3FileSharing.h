@@ -8,21 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for S3FileSharing.
-FOUNDATION_EXPORT double S3FileSharingVersionNumber;
-
-//! Project version string for S3FileSharing.
-FOUNDATION_EXPORT const unsigned char S3FileSharingVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <S3FileSharing/PublicHeader.h>
-
+@protocol S3FileSharingDelegate;
 
 @interface S3FileSharing : NSObject
 
 @property (nonatomic, retain) NSString* bucket;
+@property (nonatomic, retain) NSString* prefix;
+@property (nonatomic, assign) id<S3FileSharingDelegate> delegate;
 
-- (instancetype)initWithAccessKey:(NSString*)key secret:(NSString*)secret;
+- (instancetype)initWithDelegate:(id<S3FileSharingDelegate>)delegate;
+
+// File management
 - (void)uploadFile:(NSURL*)file;
 - (void)releaseFile:(NSString*)key;
+
+@end
+
+@protocol S3FileSharingDelegate <NSObject>
+
+-(void)file:(NSURL*)file uploadCompletedWithKey:(NSString*)key
+      error:(NSError*)error;
 
 @end

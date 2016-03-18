@@ -7,11 +7,15 @@
 //
 
 #import "OTAppDelegate.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @implementation OTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [DDLog addLogger:[DDTTYLogger sharedInstance]]; // TTY = Xcode console
+    [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
+    
     // Override point for customization after application launch.
     return YES;
 }

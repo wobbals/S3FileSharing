@@ -2,9 +2,18 @@ PODS:
   - AWSCore (2.3.6)
   - AWSS3 (2.3.6):
     - AWSCore (= 2.3.6)
+  - CocoaLumberjack (2.2.0):
+    - CocoaLumberjack/Default (= 2.2.0)
+    - CocoaLumberjack/Extensions (= 2.2.0)
+  - CocoaLumberjack/Core (2.2.0)
+  - CocoaLumberjack/Default (2.2.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.2.0):
+    - CocoaLumberjack/Default
   - S3FileSharing (0.1.0):
     - AWSCore (~> 2.3)
     - AWSS3 (~> 2.3)
+    - CocoaLumberjack (= 2.2.0)
 
 DEPENDENCIES:
   - S3FileSharing (from `../`)
@@ -16,6 +25,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AWSCore: 917d84b32974136194a905b98c0ae25c9f3350b8
   AWSS3: 1caaf6b45100503fecf3d418c394519a89409a74
-  S3FileSharing: fef81a46e1147f1a08d302d888f2479c80956993
+  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
+  S3FileSharing: 3d62c9ca9e38db59b9d228aa1599127f1272e3ea
 
 COCOAPODS: 0.38.2

@@ -19,14 +19,13 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
                        DESC
 
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/S3FileSharing"
+  s.homepage         = "https://github.com/wobbals/S3FileSharing"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Charley Robinson" => "charley@tokbox.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/S3FileSharing.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => "https://github.com/wobbals/S3FileSharing.git", :tag => s.version.to_s }
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '8.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
@@ -38,4 +37,5 @@ Pod::Spec.new do |s|
   # s.frameworks = 'UIKit', 'MapKit'
    s.dependency 'AWSS3', '~> 2.3'
    s.dependency 'AWSCore', '~> 2.3'
+   s.dependency 'CocoaLumberjack', '2.2.0'
 end
