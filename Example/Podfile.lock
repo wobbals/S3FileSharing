@@ -1,0 +1,21 @@
+PODS:
+  - AWSCore (2.3.6)
+  - AWSS3 (2.3.6):
+    - AWSCore (= 2.3.6)
+  - S3FileSharing (0.1.0):
+    - AWSCore (~> 2.3)
+    - AWSS3 (~> 2.3)
+
+DEPENDENCIES:
+  - S3FileSharing (from `../`)
+
+EXTERNAL SOURCES:
+  S3FileSharing:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AWSCore: 917d84b32974136194a905b98c0ae25c9f3350b8
+  AWSS3: 1caaf6b45100503fecf3d418c394519a89409a74
+  S3FileSharing: fef81a46e1147f1a08d302d888f2479c80956993
+
+COCOAPODS: 0.38.2
