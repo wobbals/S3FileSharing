@@ -82,19 +82,71 @@
     DDLogInfo(@"started upload!");
 }
 
-- (void)releaseFile:(NSString *)key
+- (void)releaseKey:(NSString *)key
 {
-    
+    AWSS3DeleteObjectRequest* request = [AWSS3DeleteObjectRequest new];
+    [request setBucket:self.bucket];
+    [request setKey:key];
+    AWSS3 *s3 = [AWSS3 defaultS3];
+    AWSTask* task = [s3 deleteObject:request];
+    [task continueWithBlock:^id _Nullable(AWSTask * _Nonnull task) {
+        if (task.error) {
+            DDLogError(@"failed to release key %@: %@", key, task.error);
+        } else {
+            DDLogInfo(@"released key %@: %@", key, task.result);
+        }
+        return nil;
+    }];
 }
 
-- (void)fetchKey:(NSString*)key {
-    NSURL* tempURL;
-    [self fetchKey:key toURL:tempURL];
-}
-
-- (void)fetchKey:(NSString*)key toURL:(NSURL*)url
+- (void)downloadKey:(NSString*)key toURL:(NSURL*)url
 {
+    AWSS3TransferUtility* transferUtility =
+    [AWSS3TransferUtility defaultS3TransferUtility];
+
+    AWSS3TransferUtilityDownloadProgressBlock downloadProgress =
+    ^void(AWSS3TransferUtilityDownloadTask *task,
+          int64_t bytesWritten,
+          int64_t totalBytesWritten,
+          int64_t totalBytesExpectedToWrite)
+    {
+        DDLogDebug(@"bytesIn: %lld of %lld",
+                   totalBytesWritten,
+                   totalBytesExpectedToWrite);
+    };
+
+    AWSS3TransferUtilityDownloadCompletionHandlerBlock completionHandler =
+    ^void (AWSS3TransferUtilityDownloadTask * _Nonnull task,
+           NSURL * _Nullable location,
+           NSData * _Nullable data,
+           NSError * _Nullable error)
+    {
+        NSAssert([location isEqual:url], @"nonmatching download urls");
+        [self.delegate file:url downloadCompletedWithKey:key error:error];
+    };
     
+    AWSS3TransferUtilityDownloadExpression* expression =
+    [AWSS3TransferUtilityDownloadExpression new];
+    expression.downloadProgress = downloadProgress;
+    
+    [[transferUtility downloadToURL:url
+                            bucket:self.bucket
+                               key:key
+                        expression:expression
+                  completionHander:completionHandler]
+    continueWithBlock:^id(AWSTask* task) {
+        if (task.error) {
+            DDLogError(@"Error: %@", task.error);
+        }
+        if (task.exception) {
+            DDLogError(@"Exception: %@", task.exception);
+        }
+        if (task.result) {
+            DDLogInfo(@"Result: %@", task.result);
+        }
+
+        return nil;
+    }];
 }
 
 

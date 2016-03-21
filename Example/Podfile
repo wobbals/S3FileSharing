@@ -9,6 +9,5 @@ end
 
 target 'S3FileSharing_Tests', :exclusive => true do
   pod 'S3FileSharing', :path => '../'
-
-  
 end
+

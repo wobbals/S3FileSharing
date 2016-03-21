@@ -23,6 +23,8 @@
 		6BA1828A1899E9EA36C0C99D /* Pods_S3FileSharing_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5549DC98E5319B3D67D84BB1 /* Pods_S3FileSharing_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		9D43B66F129DA0E20CE16ADA /* Pods_S3FileSharing_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7AB65DAFDF8F7761F354DD4 /* Pods_S3FileSharing_Example.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D436E3811CA0927500A0C897 /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D436E3801CA0927500A0C897 /* NSData+MD5.m */; };
+		D436E3871CA0982F00A0C897 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = D436E3861CA0982F00A0C897 /* Config.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,9 @@
 		9C628DE0AF9A2A8AB4EB43AB /* S3FileSharing.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = S3FileSharing.podspec; path = ../S3FileSharing.podspec; sourceTree = "<group>"; };
 		A35E39A4226A9BDC15F64278 /* Pods-S3FileSharing_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-S3FileSharing_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-S3FileSharing_Example/Pods-S3FileSharing_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		AD5E8ADF18D5C9A0701AF4C3 /* Pods-S3FileSharing_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-S3FileSharing_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-S3FileSharing_Tests/Pods-S3FileSharing_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		D436E37F1CA0927500A0C897 /* NSData+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MD5.h"; sourceTree = "<group>"; };
+		D436E3801CA0927500A0C897 /* NSData+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MD5.m"; sourceTree = "<group>"; };
+		D436E3861CA0982F00A0C897 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		E7AB65DAFDF8F7761F354DD4 /* Pods_S3FileSharing_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_S3FileSharing_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -137,6 +142,8 @@
 				6003F5A6195388D20070C39A /* OTViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
+				D436E37F1CA0927500A0C897 /* NSData+MD5.h */,
+				D436E3801CA0927500A0C897 /* NSData+MD5.m */,
 			);
 			name = "Example for S3FileSharing";
 			path = S3FileSharing;
@@ -149,6 +156,7 @@
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
 				6003F59B195388D20070C39A /* S3FileSharing-Prefix.pch */,
+				D436E3861CA0982F00A0C897 /* Config.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -276,6 +284,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D436E3871CA0982F00A0C897 /* Config.plist in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
@@ -392,6 +401,7 @@
 			files = (
 				6003F59E195388D20070C39A /* OTAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* OTViewController.m in Sources */,
+				D436E3811CA0927500A0C897 /* NSData+MD5.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

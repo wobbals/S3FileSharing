@@ -20,13 +20,17 @@
 
 // File management
 - (void)uploadFile:(NSURL*)file;
-- (void)releaseFile:(NSString*)key;
+- (void)releaseKey:(NSString*)key;
+- (void)downloadKey:(NSString*)key toURL:(NSURL*)url;
 
 @end
 
 @protocol S3FileSharingDelegate <NSObject>
 
 -(void)file:(NSURL*)file uploadCompletedWithKey:(NSString*)key
+      error:(NSError*)error;
+
+-(void)file:(NSURL*)file downloadCompletedWithKey:(NSString*)key
       error:(NSError*)error;
 
 @end
