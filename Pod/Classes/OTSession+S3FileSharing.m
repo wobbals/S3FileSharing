@@ -1,6 +1,5 @@
 //
-//  OTSession+(S3FileSharing).m
-//  Pods
+//  OTFileSharingSession.m
 //
 //  Created by Charley Robinson on 3/21/16.
 //

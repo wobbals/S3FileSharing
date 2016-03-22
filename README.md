@@ -1,24 +1,34 @@
 # S3FileSharing
 
-[![CI Status](http://img.shields.io/travis/Charley Robinson/S3FileSharing.svg?style=flat)](https://travis-ci.org/Charley Robinson/S3FileSharing)
-[![Version](https://img.shields.io/cocoapods/v/S3FileSharing.svg?style=flat)](http://cocoapods.org/pods/S3FileSharing)
-[![License](https://img.shields.io/cocoapods/l/S3FileSharing.svg?style=flat)](http://cocoapods.org/pods/S3FileSharing)
-[![Platform](https://img.shields.io/cocoapods/p/S3FileSharing.svg?style=flat)](http://cocoapods.org/pods/S3FileSharing)
+Offers a simple interface for uploading and downloading files to AWS S3.
+Additionally, offers a subclass of OTSession of the OpenTok iOS SDK that
+supports simple file sharing between OpenTok clients.
 
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+Create a `Config.plist` (see example `Config.plist.sample`) to provide AWS
+Cognito credentials based on the example app. See `OTAppDelegate.m` for an 
+example to get started.
+
+In the general case, you will need to set up a credentials
+provider and service configuration at app launch, and make sure your user has
+write access to the S3 bucket that the client will attempt to use to share
+files. 
+
+*IMPORTANT* : AWS S3 does a weird thing with multipart uploads against invalid
+credentials. If your credentials are not legit, or have insufficient
+permissions to read/write to the appropriate S3 bucket, uploads will not fail
+but instead continue to retry until the request times out. This can be very
+difficult to detect and I haven't yet figured out a workaround.
+
+
 ## Requirements
 
 ## Installation
 
-S3FileSharing is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod "S3FileSharing"
-```
+S3FileSharing is not yet published to CocoaPods, awaiting peer review.
 
 ## Author
 
