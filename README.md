@@ -6,7 +6,8 @@ supports simple file sharing between OpenTok clients.
 
 ## Usage
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+To run the example project, clone the repo, and run `pod install` from the 
+Example directory first.
 
 Create a `Config.plist` (see example `Config.plist.sample`) to provide AWS
 Cognito credentials based on the example app. See `OTAppDelegate.m` for an 
@@ -17,11 +18,13 @@ provider and service configuration at app launch, and make sure your user has
 write access to the S3 bucket that the client will attempt to use to share
 files. 
 
-*IMPORTANT* : AWS S3 does a weird thing with multipart uploads against invalid
+_IMPORTANT_ : AWS S3 does a weird thing with multipart uploads against invalid
 credentials. If your credentials are not legit, or have insufficient
 permissions to read/write to the appropriate S3 bucket, uploads will not fail
 but instead continue to retry until the request times out. This can be very
-difficult to detect and I haven't yet figured out a workaround.
+difficult to detect and I haven't yet figured out a workaround. Keep an eye
+on the progress messages (`bytesIn`, `bytesOut`) if you think the demo is not
+functioning correctly.
 
 
 ## Requirements
@@ -36,4 +39,5 @@ Charley Robinson, charley@tokbox.com
 
 ## License
 
-S3FileSharing is available under the MIT license. See the LICENSE file for more info.
+S3FileSharing is available under the MIT license. See the LICENSE file for more 
+info.
