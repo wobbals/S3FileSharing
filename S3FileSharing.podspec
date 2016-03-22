@@ -38,4 +38,5 @@ Pod::Spec.new do |s|
    s.dependency 'AWSS3', '~> 2.3'
    s.dependency 'AWSCore', '~> 2.3'
    s.dependency 'CocoaLumberjack', '2.2.0'
+   s.dependency 'OpenTok'
 end

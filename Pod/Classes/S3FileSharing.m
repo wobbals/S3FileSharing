@@ -17,6 +17,26 @@
     
 }
 
++ (id)sharedInstance
+{
+    // structure used to test whether the block has completed or not
+    static dispatch_once_t p = 0;
+    
+    // initialize sharedObject as nil (first call only)
+    __strong static id _sharedObject = nil;
+    
+    // executes a block object once and only once for the lifetime of an application
+    dispatch_once(&p, ^{
+        _sharedObject = [[self alloc] init];
+    });
+    
+    // returns the same object each time
+    return _sharedObject;
+}
+
+// TODO: Make this framework-friendly
+static int ddLogLevel = DDLogLevelDebug;
+
 - (instancetype)initWithDelegate:(id<S3FileSharingDelegate>)delegate
 {
     self = [super init];
@@ -34,7 +54,8 @@
     NSNumber *fileSize = [fileAttributes objectForKey:NSFileSize];
     DDLogInfo(@"Will upload %@ bytes", fileSize);
     
-    NSString* fileName = [file lastPathComponent];
+    // Create a UUID for the keyname to be uploaded
+    NSString* fileName = [[NSUUID UUID] UUIDString];
 
     AWSS3TransferUtility* transferUtility =
     [AWSS3TransferUtility defaultS3TransferUtility];
@@ -56,6 +77,7 @@
     {
         [self.delegate file:file uploadCompletedWithKey:task.key error:error];
     };
+    
     
     [[transferUtility uploadFile:file
                          bucket:self.bucket

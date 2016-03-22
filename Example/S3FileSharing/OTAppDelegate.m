@@ -8,6 +8,7 @@
 
 #import "OTAppDelegate.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <AWSCore/AWSCore.h>
 
 @implementation OTAppDelegate
 
@@ -16,6 +17,39 @@
     [DDLog addLogger:[DDTTYLogger sharedInstance]]; // TTY = Xcode console
     [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
     
+    
+    // Be sure to create a Config.plist (see Config.plist.sample)
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Config"
+                                                     ofType:@"plist"];
+    NSDictionary *settings = [[NSDictionary alloc] initWithContentsOfFile:path];
+    NSString* cognitoPoolID = [settings objectForKey:@"AWS_COGNITO_POOL_ID"];
+    NSLog(@"Config.plist: Using Cognito Pool ID %@", cognitoPoolID);
+    
+    AWSCognitoCredentialsProvider *credentialsProvider =
+    [[AWSCognitoCredentialsProvider alloc]
+     initWithRegionType:AWSRegionUSEast1
+     identityPoolId:cognitoPoolID];
+    
+    AWSServiceConfiguration *configuration =
+    [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1
+                                credentialsProvider:credentialsProvider];
+    
+    [AWSServiceManager defaultServiceManager].defaultServiceConfiguration =
+    configuration;
+    
+    // Retrieve your Amazon Cognito ID just for kicks.
+    // You may see errors if configs are bad.
+    [[credentialsProvider getIdentityId] continueWithBlock:^id(AWSTask *task) {
+        if (task.error) {
+            NSLog(@"Cognito initialization error: %@", task.error);
+        }
+        else {
+            NSString *cognitoId = task.result;
+            NSLog(@"This device Cognito ID: %@", cognitoId);
+        }
+        return nil;
+    }];
+
     // Override point for customization after application launch.
     return YES;
 }
