@@ -17,6 +17,7 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = <<-DESC
+  This module demonstrates how to use AWS S3 to implement a basic file transfer.
                        DESC
 
   s.homepage         = "https://github.com/wobbals/S3FileSharing"
@@ -25,7 +26,7 @@ Pod::Spec.new do |s|
   s.author           = { "Charley Robinson" => "charley@tokbox.com" }
   s.source           = { :git => "https://github.com/wobbals/S3FileSharing.git", :tag => s.version.to_s }
 
-  s.platform     = :ios, '8.0'
+  s.platform     = :ios, '10.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
