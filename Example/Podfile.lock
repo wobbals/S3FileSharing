@@ -11,14 +11,13 @@ PODS:
   - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
   - OpenTok (2.9.2)
-  - S3FileSharing (0.1.0):
-    - AWSCore (~> 2.3)
-    - AWSS3 (~> 2.3)
+  - S3FileSharing (0.0.1):
+    - AWSCore (= 2.3.6)
+    - AWSS3 (= 2.3.6)
     - CocoaLumberjack (= 2.2.0)
     - OpenTok
 
 DEPENDENCIES:
-  - OpenTok
   - S3FileSharing (from `../`)
 
 EXTERNAL SOURCES:
@@ -30,8 +29,8 @@ SPEC CHECKSUMS:
   AWSS3: 1caaf6b45100503fecf3d418c394519a89409a74
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   OpenTok: aa00296d8c48972cbbd18e2e3954955ea6fb9501
-  S3FileSharing: 2a6b1c5412c4a26fcc107875319e3ac18fd0d020
+  S3FileSharing: f7aa0ba0b80037099943e47918c9cbaa1f11bb31
 
-PODFILE CHECKSUM: 8a5dace7573c3a100dc55cd1c7fb4a3f7e6e5f6e
+PODFILE CHECKSUM: 24122a4e30096ae13d2fa4a961cb92a4edf1bc80
 
 COCOAPODS: 1.2.0.beta.1
